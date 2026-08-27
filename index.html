@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jcdd-4208830 | Select Editor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">MDPI</div>
+        <div class="brand-name">SuSy</div>
+      </div>
+
+      <label class="side-search">
+        <input type="text" placeholder="Search" />
+      </label>
+
+      <nav class="menu">
+        <div class="menu-group">
+          <div class="menu-title">User Overview</div>
+          <a href="#">Pending Tasks</a>
+          <a href="#">My Manuscripts</a>
+          <a href="#">Messages</a>
+        </div>
+        <div class="menu-group">
+          <div class="menu-title">Account</div>
+          <a href="#">My Profile</a>
+          <a href="#">Change Password</a>
+          <a href="#">Logout</a>
+        </div>
+        <div class="menu-group open">
+          <div class="menu-title">Editorial Office</div>
+          <div class="eo-search">
+            <input type="text" placeholder="Search manuscripts" />
+          </div>
+          <a href="#" class="active">Process Manuscripts</a>
+          <a href="#">Assigned to Me</a>
+          <a href="#">Special Issues</a>
+          <a href="#">Editorial Board</a>
+          <a href="#">Reviewers</a>
+        </div>
+        <div class="menu-group">
+          <div class="menu-title">Production Office</div>
+          <a href="#">English Editing</a>
+          <a href="#">Layout</a>
+          <a href="#">Proofreading</a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="main">
+      <header class="ms-bar">
+        <div class="ms-id">jcdd-4208830 | Under review</div>
+        <div class="ms-tools">
+          <label>
+            Quick find manuscript
+            <input type="text" />
+          </label>
+          <button type="button" class="edit-btn">Edit</button>
+        </div>
+      </header>
+
+      <section class="content">
+        <h1 class="page-title">Precheck and APC Confirmation</h1>
+
+        <div class="panel">
+          <h2>Journal APC</h2>
+          <table class="info-table">
+            <tr>
+              <th>Journal</th>
+              <td>Journal of Cardiovascular Development and Disease (JCDD)</td>
+            </tr>
+            <tr>
+              <th>Article type</th>
+              <td>Article</td>
+            </tr>
+            <tr>
+              <th>APC</th>
+              <td>2,700 CHF</td>
+            </tr>
+            <tr>
+              <th>Discount</th>
+              <td>0%</td>
+            </tr>
+            <tr>
+              <th>Payable APC</th>
+              <td>2,700 CHF</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Invoicing</h2>
+          <table class="info-table">
+            <tr>
+              <th>Payer</th>
+              <td>Corresponding author</td>
+            </tr>
+            <tr>
+              <th>Invoice email</th>
+              <td>author@university.edu</td>
+            </tr>
+            <tr>
+              <th>Institution</th>
+              <td>—</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Academic Editor</h2>
+          <p class="hint">No academic editor has been assigned yet.</p>
+          <button type="button" class="primary-btn" id="openEditor">Select Editor</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="dialog" id="dialog">
+      <div class="dialog-header">
+        <h1>Select Editor</h1>
+        <button class="close-btn" id="closeBtn" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="table-scroll" id="tableScroll">
+        <table class="editor-table">
+          <thead>
+            <tr class="col-head">
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Section</th>
+              <th class="sortable" id="sortInvite">
+                Last Invite Date
+                <span class="sort-arrows" aria-hidden="true">
+                  <span class="arrow up"></span>
+                  <span class="arrow down"></span>
+                </span>
+              </th>
+              <th>Research Interests</th>
+              <th>Absence Date</th>
+              <th>Action</th>
+            </tr>
+            <tr class="filter-row">
+              <th>
+                <input type="text" id="filterName" />
+              </th>
+              <th>
+                <input type="text" id="filterEmail" />
+              </th>
+              <th>
+                <select id="filterRole">
+                  <option value="">Select</option>
+                </select>
+              </th>
+              <th>
+                <select id="filterSection">
+                  <option value="">Select</option>
+                </select>
+              </th>
+              <th class="invite-filter">
+                <label class="journal-check">
+                  <input type="checkbox" id="filterCurrentJournal" />
+                  current journal
+                </label>
+              </th>
+              <th>
+                <div class="interests-filter">
+                  <input type="text" id="filterInterests" />
+                  <label class="exact-check">
+                    <input type="checkbox" id="filterExact" />
+                    exact
+                  </label>
+                  <span
+                    class="info-icon"
+                    title="When checked, research interests must match the keyword exactly (case-insensitive). When unchecked, a partial match is used."
+                    >i</span>
+                </div>
+              </th>
+              <th></th>
+              <th>
+                <a href="#" id="clearAll">Clear All</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="dialog-footer">
+        <div class="pager">
+          <a href="#" id="prevPage">Prev</a>
+          <span id="pageNumbers"></span>
+          <a href="#" id="nextPage">Next</a>
+          <span class="jump">
+            Jump
+            <input type="text" id="jumpInput" value="1" />
+            <button type="button" id="jumpGo">GO</button>
+          </span>
+        </div>
+        <div class="view">
+          View
+          <select id="viewSelect">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
