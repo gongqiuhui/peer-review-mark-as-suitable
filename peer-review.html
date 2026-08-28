@@ -776,7 +776,7 @@
         <button type="button" id="closeDialog" aria-label="Close">×</button>
       </div>
       <div class="dialog-bd" id="dialogBody">
-        Are you sure to mark <span class="email">marco.bietresato@unibz.it</span> as suitable?
+        Please confirm that the Academic Editor has agreed to this change.
       </div>
       <div class="dialog-ft">
         <button type="button" class="cancel-btn" id="cancelDialog">Cancel</button>
@@ -804,9 +804,8 @@
         if (!btn) return;
         e.preventDefault();
         pendingTag = btn.closest(".unsuitable");
-        const email = btn.closest(".reviewer").querySelector(".email").textContent.trim();
-        dialogBody.innerHTML =
-          "Are you sure to mark <span class=\"email\">" + email + "</span> as suitable?";
+        dialogBody.textContent =
+          "Please confirm that the Academic Editor has agreed to this change.";
         overlay.classList.add("open");
       });
 
