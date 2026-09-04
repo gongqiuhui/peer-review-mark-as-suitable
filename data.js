@@ -10,6 +10,20 @@ const EDITORS = [
     absenceReason: "Attending AHA Scientific Sessions satellite meetings and unavailable for new editorial assignments.",
     absenceCreatedBy: "Helen Carter",
     absenceCreatedAt: "2026-07-30",
+    absences: [
+      {
+        date: "2026-08-11 – 2026-08-25",
+        reason: "Attending AHA Scientific Sessions satellite meetings and unavailable for new editorial assignments.",
+        createdBy: "Helen Carter",
+        createdAt: "2026-07-30"
+      },
+      {
+        date: "2026-09-08 – 2026-09-14",
+        reason: "Department retreat; please do not send new invitations this week.",
+        createdBy: "Michael Grant",
+        createdAt: "2026-08-28"
+      }
+    ],
     currentJournal: true
   },
   {
@@ -23,6 +37,26 @@ const EDITORS = [
     absenceReason: "Scheduled hospital rotation abroad; please invite another editor during this period.",
     absenceCreatedBy: "Chiara Bianchi",
     absenceCreatedAt: "2026-08-15",
+    absences: [
+      {
+        date: "2026-09-02 – 2026-09-16",
+        reason: "Scheduled hospital rotation abroad; please invite another editor during this period.",
+        createdBy: "Chiara Bianchi",
+        createdAt: "2026-08-15"
+      },
+      {
+        date: "2026-10-03 – 2026-10-08",
+        reason: "Conference travel to TCT 2026.",
+        createdBy: "Luca Moretti",
+        createdAt: "2026-09-20"
+      },
+      {
+        date: "2026-12-22 – 2026-12-31",
+        reason: "Year-end leave.",
+        createdBy: "Chiara Bianchi",
+        createdAt: "2026-11-30"
+      }
+    ],
     currentJournal: true
   },
   {
