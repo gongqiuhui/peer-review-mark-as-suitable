@@ -43,8 +43,7 @@
     absenceCancelBtn: document.getElementById("absenceCancelBtn"),
     absenceUpdateLink: document.getElementById("absenceUpdateLink"),
     absenceEmail: document.getElementById("absenceEmail"),
-    absenceReason: document.getElementById("absenceReason"),
-    absenceMeta: document.getElementById("absenceMeta")
+    absenceDetails: document.getElementById("absenceDetails")
   };
 
   function uniqueSorted(values) {
@@ -127,9 +126,31 @@
       </svg>`;
   }
 
+  function getAbsences(editor) {
+    if (Array.isArray(editor.absences) && editor.absences.length) {
+      return editor.absences;
+    }
+    if (editor.absenceDate) {
+      return [
+        {
+          date: editor.absenceDate,
+          reason: editor.absenceReason || "No reason provided.",
+          createdBy: editor.absenceCreatedBy || "Unknown",
+          createdAt: editor.absenceCreatedAt || "Unknown"
+        }
+      ];
+    }
+    return [];
+  }
+
   function absenceCell(editor) {
-    if (!editor.absenceDate) return "";
-    return `<span class="absence-date" data-name="${escapeHtml(editor.name)}">${escapeHtml(editor.absenceDate)}</span>`;
+    const records = getAbsences(editor);
+    if (!records.length) return "";
+    const dates = records
+      .map((item) => escapeHtml(item.date || ""))
+      .filter(Boolean)
+      .join("<br>");
+    return `<span class="absence-date" data-name="${escapeHtml(editor.name)}">${dates}</span>`;
   }
 
   function positionAbsencePopup(anchor) {
@@ -151,11 +172,15 @@
     const editor = EDITORS.find((item) => item.name === name);
     if (!editor) return;
     els.absenceEmail.textContent = `${editor.email} absences`;
-    const reason = editor.absenceReason || "No reason provided.";
-    els.absenceReason.textContent = `Reason: ${reason}`;
-    const by = editor.absenceCreatedBy || "Unknown";
-    const at = editor.absenceCreatedAt || "Unknown";
-    els.absenceMeta.innerHTML = `created by <span class="absence-author">${escapeHtml(by)}</span> on <em>${escapeHtml(at)}</em>`;
+    const records = getAbsences(editor);
+    els.absenceDetails.innerHTML = records
+      .map((item) => {
+        const by = item.createdBy || "Unknown";
+        const at = item.createdAt || "Unknown";
+        const reason = item.reason || "No reason provided.";
+        return `<p class="absence-record">created by <span class="absence-author">${escapeHtml(by)}</span> on <em>${escapeHtml(at)}</em>. Reason: ${escapeHtml(reason)}</p>`;
+      })
+      .join("");
     els.absenceOverlay.hidden = false;
     if (anchor) positionAbsencePopup(anchor);
   }
@@ -221,7 +246,11 @@
               <td>${absenceCell(editor)}</td>
               <td>
                 <div class="action-cell">
-                  <a class="invite-link" href="#" data-action="invite">Invite</a>
+                  ${
+                    getAbsences(editor).length
+                      ? `<span class="absent-label">Absent</span>`
+                      : `<a class="invite-link" href="#" data-action="invite">Invite</a>`
+                  }
                   <button class="icon-btn" type="button" data-action="note" title="Editor notes">${iconDocument()}</button>
                   <button class="icon-btn" type="button" data-action="history" title="Search editor records">${iconSearch()}</button>
                 </div>
