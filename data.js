@@ -4,9 +4,12 @@ const EDITORS = [
     email: "alopez-candales@usf.edu",
     roles: ["Section Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-07-12",
     interests: "cardiac stem cell; coronary origin; right ventricular function; pulmonary hypertension; echocardiography",
-    absenceDate: "",
+    absenceDate: "2026-08-11 – 2026-08-25",
+    absenceReason: "Attending AHA Scientific Sessions satellite meetings and unavailable for new editorial assignments.",
+    absenceCreatedBy: "Helen Carter",
+    absenceCreatedAt: "2026-07-30",
     currentJournal: true
   },
   {
@@ -14,9 +17,12 @@ const EDITORS = [
     email: "fabrizio.dascenzo@unito.it",
     roles: ["Section Board Member", "Editorial Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-06-03",
     interests: "Interventional Cardiology",
-    absenceDate: "",
+    absenceDate: "2026-09-02 – 2026-09-16",
+    absenceReason: "Scheduled hospital rotation abroad; please invite another editor during this period.",
+    absenceCreatedBy: "Chiara Bianchi",
+    absenceCreatedAt: "2026-08-15",
     currentJournal: true
   },
   {
@@ -24,9 +30,12 @@ const EDITORS = [
     email: "mehtajl@uams.edu",
     roles: ["Guest Editor"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-05-21",
     interests: "atherosclerosis; oxidative stress; coronary artery disease; inflammation",
-    absenceDate: "",
+    absenceDate: "2026-08-01 – 2026-08-10",
+    absenceReason: "Family medical leave. Contact the editorial office if an urgent decision is required.",
+    absenceCreatedBy: "Robert Haynes",
+    absenceCreatedAt: "2026-07-20",
     currentJournal: false
   },
   {
@@ -34,9 +43,12 @@ const EDITORS = [
     email: "patrick.w.j.c.serruys@gmail.com",
     roles: ["Section Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-04-18",
     interests: "percutaneous coronary intervention; drug-eluting stents; coronary physiology; structural heart disease",
-    absenceDate: "",
+    absenceDate: "2026-10-05 – 2026-10-20",
+    absenceReason: "Keynote lectures at PCR London Valves; not available to handle manuscripts.",
+    absenceCreatedBy: "Sophie Laurent",
+    absenceCreatedAt: "2026-09-01",
     currentJournal: true
   },
   {
@@ -44,9 +56,12 @@ const EDITORS = [
     email: "gary.tse@kmms.ac.uk",
     roles: ["Editorial Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-08-02",
     interests: "cardiac electrophysiology; electrocardiography; atrial fibrillation; sudden cardiac death",
-    absenceDate: "",
+    absenceDate: "2026-08-20 – 2026-09-05",
+    absenceReason: "Annual leave. Will resume editorial work after 5 September 2026.",
+    absenceCreatedBy: "James Walker",
+    absenceCreatedAt: "2026-08-08",
     currentJournal: true
   },
   {
@@ -54,9 +69,12 @@ const EDITORS = [
     email: "maciejbanach@aol.co.uk",
     roles: ["Section Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-03-14",
     interests: "dyslipidemia; statins; atherosclerosis; preventive cardiology",
-    absenceDate: "",
+    absenceDate: "2026-08-05 – 2026-08-18",
+    absenceReason: "Invited lecture tour in East Asia; not available to handle new manuscripts during these dates.",
+    absenceCreatedBy: "Marta Nowak",
+    absenceCreatedAt: "2026-07-22",
     currentJournal: true
   },
   {
@@ -64,9 +82,12 @@ const EDITORS = [
     email: "francesco.versaci@uniroma2.it",
     roles: ["Guest Editor"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-07-28",
     interests: "interventional cardiology; acute coronary syndrome; coronary stents",
-    absenceDate: "",
+    absenceDate: "2026-09-10 – 2026-09-24",
+    absenceReason: "Teaching block at the university summer school; limited email access.",
+    absenceCreatedBy: "Giulia Romano",
+    absenceCreatedAt: "2026-08-25",
     currentJournal: false
   },
   {
@@ -74,9 +95,12 @@ const EDITORS = [
     email: "teimamu@med.u-toyama.ac.jp",
     roles: ["Editorial Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-02-11",
     interests: "heart failure; mechanical circulatory support; ventricular assist device; hemodynamics",
-    absenceDate: "",
+    absenceDate: "2026-08-15 – 2026-08-30",
+    absenceReason: "Conference travel to ESC Heart Failure and related workshops.",
+    absenceCreatedBy: "Yuki Tanaka",
+    absenceCreatedAt: "2026-07-29",
     currentJournal: true
   },
   {
@@ -84,9 +108,12 @@ const EDITORS = [
     email: "gianfranco.mitacchione@asst-spedalicivili.it",
     roles: ["Guest Editor"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-06-19",
     interests: "cardiac pacing; leadless pacemaker; heart failure; device therapy",
-    absenceDate: "",
+    absenceDate: "2026-07-21 – 2026-08-04",
+    absenceReason: "Parental leave. Please assign manuscripts to another guest editor.",
+    absenceCreatedBy: "Paolo Ricci",
+    absenceCreatedAt: "2026-07-08",
     currentJournal: false
   },
   {
@@ -94,9 +121,12 @@ const EDITORS = [
     email: "cmpglc@unife.it",
     roles: ["Section Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-08-09",
     interests: "acute coronary syndrome; antithrombotic therapy; percutaneous coronary intervention",
-    absenceDate: "",
+    absenceDate: "2026-11-01 – 2026-11-12",
+    absenceReason: "Sabbatical writing retreat; delayed responses expected.",
+    absenceCreatedBy: "Laura Ferrari",
+    absenceCreatedAt: "2026-10-10",
     currentJournal: true
   },
   {
@@ -104,9 +134,12 @@ const EDITORS = [
     email: "f.pelliccia@uniroma1.it",
     roles: ["Editorial Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-01-27",
     interests: "takotsubo syndrome; coronary spasm; ischemic heart disease; cardiac imaging",
-    absenceDate: "",
+    absenceDate: "2026-08-08 – 2026-08-22",
+    absenceReason: "Out of office for a clinical trial investigator meeting in Boston.",
+    absenceCreatedBy: "Marco Gentile",
+    absenceCreatedAt: "2026-07-25",
     currentJournal: true
   },
   {
@@ -114,9 +147,12 @@ const EDITORS = [
     email: "gani.bajraktari@uni-pr.edu",
     roles: ["Section Board Member"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-05-06",
     interests: "heart failure; echocardiography; coronary artery disease; valvular heart disease",
-    absenceDate: "",
+    absenceDate: "2026-09-05 – 2026-09-19",
+    absenceReason: "National holiday period and departmental audit; reduced availability.",
+    absenceCreatedBy: "Elira Hoxha",
+    absenceCreatedAt: "2026-08-20",
     currentJournal: true
   },
   {
@@ -124,9 +160,12 @@ const EDITORS = [
     email: "f.mangiacapra@unicampus.it",
     roles: ["Guest Editor"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-07-01",
     interests: "coronary physiology; fractional flow reserve; endothelial function",
-    absenceDate: "",
+    absenceDate: "2026-08-12 – 2026-08-26",
+    absenceReason: "Research visit to a partner lab; please avoid new invitations.",
+    absenceCreatedBy: "Alessandra Conti",
+    absenceCreatedAt: "2026-08-01",
     currentJournal: false
   },
   {
@@ -134,9 +173,12 @@ const EDITORS = [
     email: "elianonavarese@gmail.com",
     roles: ["Section Board Member", "Guest Editor"],
     section: "Cardiovascular Clinical Research",
-    lastInviteDate: "",
+    lastInviteDate: "2026-04-30",
     interests: "antithrombotic therapy; meta-analysis; acute coronary syndrome; lipid-lowering therapy",
-    absenceDate: "",
+    absenceDate: "2026-10-01 – 2026-10-14",
+    absenceReason: "Medical leave following elective surgery; return date 15 October 2026.",
+    absenceCreatedBy: "David Chen",
+    absenceCreatedAt: "2026-09-12",
     currentJournal: true
   },
   {
@@ -177,6 +219,9 @@ const EDITORS = [
     lastInviteDate: "",
     interests: "hypertension; dyslipidemia; antithrombotic therapy; preventive cardiology",
     absenceDate: "2026-08-01 – 2026-08-20",
+    absenceReason: "Attending the ESC Congress 2026 in Barcelona; unavailable for editorial assignments during this period.",
+    absenceCreatedBy: "Anna Kowalska",
+    absenceCreatedAt: "2026-07-18",
     currentJournal: true
   },
   {
@@ -307,6 +352,9 @@ const EDITORS = [
     lastInviteDate: "",
     interests: "antiplatelet therapy; DAPT; percutaneous coronary intervention; bleeding risk",
     absenceDate: "2026-09-01 – 2026-09-15",
+    absenceReason: "Scheduled annual leave; please do not send new invitations until 16 September 2026.",
+    absenceCreatedBy: "Elena Rossi",
+    absenceCreatedAt: "2026-08-12",
     currentJournal: false
   },
   {
@@ -627,6 +675,9 @@ const EDITORS = [
     lastInviteDate: "",
     interests: "cardiac rehabilitation; heart failure; cardiopulmonary exercise testing",
     absenceDate: "2026-07-10 – 2026-07-25",
+    absenceReason: "Teaching a summer school course in cardiopulmonary exercise testing and unavailable for manuscript handling.",
+    absenceCreatedBy: "Nikos Papadopoulos",
+    absenceCreatedAt: "2026-06-28",
     currentJournal: true
   },
   {
@@ -1007,6 +1058,9 @@ const EDITORS = [
     lastInviteDate: "",
     interests: "catheter ablation; atrial fibrillation; ventricular tachycardia",
     absenceDate: "2026-08-10 – 2026-08-24",
+    absenceReason: "Personal medical leave. Alternative academic editors should be invited during this period.",
+    absenceCreatedBy: "Thomas Berger",
+    absenceCreatedAt: "2026-08-01",
     currentJournal: true
   },
   {
