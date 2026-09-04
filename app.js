@@ -167,11 +167,24 @@
 
   function scheduleCloseAbsencePopup() {
     clearTimeout(closeAbsencePopup.timer);
-    closeAbsencePopup.timer = setTimeout(closeAbsencePopup, 160);
+    closeAbsencePopup.timer = setTimeout(closeAbsencePopup, 250);
   }
 
   function cancelCloseAbsencePopup() {
     clearTimeout(closeAbsencePopup.timer);
+  }
+
+  function bindAbsenceHovers() {
+    els.body.querySelectorAll(".absence-date").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cancelCloseAbsencePopup();
+        openAbsencePopup(el.dataset.name, el);
+      });
+      el.addEventListener("mouseleave", (e) => {
+        if (els.absenceDialog.contains(e.relatedTarget)) return;
+        scheduleCloseAbsencePopup();
+      });
+    });
   }
 
   function showToast(message) {
@@ -220,6 +233,7 @@
 
     renderPager(totalPages);
     els.jumpInput.value = String(state.page);
+    bindAbsenceHovers();
   }
 
   function renderPager(totalPages) {
@@ -337,21 +351,13 @@
       if (action === "history") showToast(`Invitation history: ${name}`);
     });
 
-    els.body.addEventListener("mouseover", (e) => {
-      const dateEl = e.target.closest(".absence-date");
-      if (!dateEl || dateEl.contains(e.relatedTarget)) return;
-      cancelCloseAbsencePopup();
-      openAbsencePopup(dateEl.dataset.name, dateEl);
-    });
-    els.body.addEventListener("mouseout", (e) => {
-      const dateEl = e.target.closest(".absence-date");
-      if (!dateEl || dateEl.contains(e.relatedTarget)) return;
-      if (els.absenceDialog.contains(e.relatedTarget)) return;
+    els.absenceDialog.addEventListener("mouseenter", cancelCloseAbsencePopup);
+    els.absenceDialog.addEventListener("mouseleave", (e) => {
+      if (e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(".absence-date")) {
+        return;
+      }
       scheduleCloseAbsencePopup();
     });
-
-    els.absenceDialog.addEventListener("mouseenter", cancelCloseAbsencePopup);
-    els.absenceDialog.addEventListener("mouseleave", scheduleCloseAbsencePopup);
     els.absenceCloseBtn.addEventListener("click", closeAbsencePopup);
     els.absenceCancelBtn.addEventListener("click", closeAbsencePopup);
     els.absenceUpdateLink.addEventListener("click", (e) => e.preventDefault());
