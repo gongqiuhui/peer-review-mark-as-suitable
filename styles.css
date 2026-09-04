@@ -634,16 +634,22 @@ body {
 .editor-table th:nth-child(8),
 .editor-table td:nth-child(8) { width: 9%; }
 
-.absence-date {
+.editor-table td .absence-date {
   color: #1a0dab;
-  cursor: default;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 400;
 }
 
 .absence-overlay {
   position: fixed;
-  inset: 0;
-  background: transparent;
-  z-index: 40;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  background: none;
+  z-index: 50;
   pointer-events: none;
 }
 
