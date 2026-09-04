@@ -126,6 +126,54 @@
         <button class="close-btn" id="closeBtn" type="button" aria-label="Close">×</button>
       </div>
 
+      <div class="filter-bar">
+        <label class="filter-field">
+          <span>Name</span>
+          <input type="text" id="filterName" />
+        </label>
+        <label class="filter-field">
+          <span>Email</span>
+          <input type="text" id="filterEmail" />
+        </label>
+        <label class="filter-field">
+          <span>Role</span>
+          <select id="filterRole">
+            <option value="">Select</option>
+          </select>
+        </label>
+        <label class="filter-field">
+          <span>Section</span>
+          <select id="filterSection">
+            <option value="">Select</option>
+          </select>
+        </label>
+        <label class="filter-field">
+          <span>Last Invite Date</span>
+          <select id="filterCurrentJournal">
+            <option value="">All</option>
+            <option value="current">Current Journal</option>
+          </select>
+        </label>
+        <div class="filter-field interests-field">
+          <span>Research Interests</span>
+          <div class="interests-filter">
+            <input type="text" id="filterInterests" />
+            <label class="exact-check">
+              <input type="checkbox" id="filterExact" />
+              exact
+            </label>
+            <span
+              class="info-icon"
+              title="When checked, research interests must match the keyword exactly (case-insensitive). When unchecked, a partial match is used."
+              >i</span>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" class="search-btn" id="searchBtn">Search</button>
+          <button type="button" class="reset-btn" id="resetBtn">Reset</button>
+        </div>
+      </div>
+
       <div class="table-scroll" id="tableScroll">
         <table class="editor-table">
           <thead>
@@ -144,47 +192,6 @@
               <th>Research Interests</th>
               <th>Absence Date</th>
               <th>Action</th>
-            </tr>
-            <tr class="filter-row">
-              <th>
-                <input type="text" id="filterName" />
-              </th>
-              <th>
-                <input type="text" id="filterEmail" />
-              </th>
-              <th>
-                <select id="filterRole">
-                  <option value="">Select</option>
-                </select>
-              </th>
-              <th>
-                <select id="filterSection">
-                  <option value="">Select</option>
-                </select>
-              </th>
-              <th class="invite-filter">
-                <label class="journal-check">
-                  <input type="checkbox" id="filterCurrentJournal" />
-                  current journal
-                </label>
-              </th>
-              <th>
-                <div class="interests-filter">
-                  <input type="text" id="filterInterests" />
-                  <label class="exact-check">
-                    <input type="checkbox" id="filterExact" />
-                    exact
-                  </label>
-                  <span
-                    class="info-icon"
-                    title="When checked, research interests must match the keyword exactly (case-insensitive). When unchecked, a partial match is used."
-                    >i</span>
-                </div>
-              </th>
-              <th></th>
-              <th>
-                <a href="#" id="clearAll">Clear All</a>
-              </th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>
@@ -215,7 +222,28 @@
     </div>
   </div>
 
-  <div class="toast" id="toast" hidden></div>
+  <div class="absence-overlay" id="absenceOverlay" hidden>
+    <div class="absence-dialog" id="absenceDialog" role="dialog" aria-labelledby="absenceTitle">
+      <div class="absence-header">
+        <h2 id="absenceTitle">Editor's Absence View</h2>
+        <button class="close-btn" id="absenceCloseBtn" type="button" aria-label="Close">×</button>
+      </div>
+      <div class="absence-body">
+        <p class="absence-email" id="absenceEmail"></p>
+        <div class="absence-details">
+          <p class="absence-reason" id="absenceReason"></p>
+          <p class="absence-meta" id="absenceMeta"></p>
+        </div>
+        <p class="absence-update">
+          <a href="#" id="absenceUpdateLink">Update Absence</a>
+          <span>(Only ME can update.)</span>
+        </p>
+      </div>
+      <div class="absence-footer">
+        <button type="button" class="absence-cancel" id="absenceCancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>

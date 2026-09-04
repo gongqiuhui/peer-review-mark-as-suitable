@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviewer Board Invitation | SuSy</title>
+  <style>
+    :root {
+      --mdpi-blue: #1a7ac4;
+      --mdpi-blue-dark: #1566a6;
+      --link: #337ab7;
+      --text: #333;
+      --muted: #666;
+      --border: #d9d9d9;
+      --bg: #f3efe6;
+      --side: #f7f8fa;
+      --req: #d93025;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: #f3efe6;
+    }
+    .page {
+      width: 1448px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.04);
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      height: 64px;
+      padding: 0 28px 0 20px;
+      background: #fff;
+      border-bottom: 1px solid #e6e8ec;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mdpi-blue);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      flex: 0 0 auto;
+    }
+    .logo:hover { text-decoration: none; }
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex: 1;
+    }
+    .top-nav a {
+      color: #2b2b2b;
+      font-size: 14px;
+    }
+    .top-nav a:hover { color: var(--mdpi-blue); text-decoration: none; }
+    .caret { font-size: 9px; color: #888; margin-left: 3px; vertical-align: 1px; }
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+    .header-search {
+      display: flex;
+      align-items: center;
+      width: 210px;
+      height: 34px;
+      border: 1px solid #d0d5dd;
+      border-radius: 3px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .header-search input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      height: 100%;
+      padding: 0 10px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .header-search button {
+      width: 34px;
+      height: 100%;
+      border: 0;
+      background: transparent;
+      color: #8a8a8a;
+      cursor: pointer;
+    }
+    .submit-btn {
+      height: 34px;
+      padding: 0 18px;
+      background: var(--mdpi-blue);
+      color: #fff;
+      border: 0;
+      border-radius: 3px;
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: var(--mdpi-blue-dark); }
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #444;
+      font-size: 13px;
+      cursor: default;
+    }
+
+    .layout {
+      display: flex;
+      align-items: flex-start;
+      min-height: calc(100vh - 64px);
+    }
+
+    .sidebar {
+      width: 248px;
+      flex: 0 0 248px;
+      background: var(--side);
+      border-right: 1px solid #e6e6e6;
+      padding: 10px 0 48px;
+      min-height: calc(100vh - 64px);
+    }
+    .side-search {
+      display: flex;
+      margin: 6px 12px 10px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .side-search input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      height: 28px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-family: inherit;
+    }
+    .side-search button {
+      width: 28px;
+      border: 0;
+      background: #e8f3ff;
+      color: #1677ff;
+      cursor: pointer;
+    }
+    .menu-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 4px;
+      font-weight: 700;
+      color: #1a2b4b;
+      font-size: 13px;
+    }
+    .menu-title .chev { color: #8c8c8c; font-size: 10px; font-weight: 400; }
+    .menu a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 14px 5px 18px;
+      color: #5e6c84;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .menu a:hover { color: #1677ff; text-decoration: none; background: #eef4fb; }
+    .badge {
+      display: inline-block;
+      min-width: 18px;
+      padding: 0 5px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      background: #fff1f0;
+      color: #cf1322;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .main {
+      width: 1200px;
+      flex: 0 0 1200px;
+      min-width: 1200px;
+      background: #fff;
+      padding: 18px 56px 80px;
+    }
+    .crumb {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 6px;
+      padding-bottom: 8px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a365d;
+      border-bottom: 1px solid #e6e6e6;
+    }
+    .invite-journal {
+      margin: 0 0 16px 2cm;
+      color: #666;
+      font-size: 13px;
+    }
+    .invite-journal em { font-style: italic; color: #222; }
+    .intro {
+      max-width: 920px;
+      margin-left: 2cm;
+      line-height: 1.65;
+      color: #333;
+    }
+    .intro p { margin: 0 0 12px; }
+    .benefits {
+      margin: 4px 0 22px;
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+    .benefits li { margin: 2px 0; }
+
+    .form {
+      max-width: 980px;
+      margin: 8px 0 0 2cm;
+    }
+    .form-row,
+    .save-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .form-label {
+      position: absolute;
+      right: 100%;
+      top: 0;
+      padding: 7px 12px 0 0;
+      color: #333;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .req { color: var(--req); margin-right: 4px; font-weight: 700; }
+    .radios {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      min-height: 32px;
+    }
+    .radios label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .radios input { accent-color: var(--mdpi-blue); }
+    .text-input,
+    .textarea {
+      width: 100%;
+      max-width: 640px;
+      border: 1px solid #c8c8c8;
+      border-radius: 3px;
+      font-family: inherit;
+      font-size: 13px;
+      color: #333;
+      background: #fff;
+    }
+    .text-input {
+      height: 32px;
+      padding: 0 10px;
+    }
+    .textarea::placeholder {
+      color: #9aa0a6;
+    }
+    .textarea {
+      max-width: 720px;
+      min-height: 150px;
+      padding: 8px 10px;
+      resize: vertical;
+    }
+    .text-input:focus,
+    .textarea:focus,
+    .ms-control:focus-within {
+      outline: 0;
+      border-color: #8cb4e0;
+      box-shadow: 0 0 0 2px rgba(26, 122, 196, 0.12);
+    }
+    .field-error .text-input,
+    .field-error .textarea,
+    .field-error .ms-control {
+      border-color: #d93025;
+    }
+    .error-text {
+      display: none;
+      margin-top: 4px;
+      color: var(--req);
+      font-size: 12px;
+    }
+    .field-error .error-text { display: block; }
+
+    .journal-prompt {
+      margin: 0 0 8px;
+      color: #333;
+      line-height: 1.55;
+      max-width: 720px;
+    }
+    .journal-prompt + .journal-prompt { margin-top: 8px; }
+    .hint {
+      margin: 6px 0 0;
+      color: #888;
+      font-size: 12px;
+    }
+    .hint.warn { color: #b45309; }
+
+    .ms {
+      position: relative;
+      max-width: 640px;
+    }
+    .ms-control {
+      min-height: 34px;
+      border: 1px solid #c8c8c8;
+      border-radius: 3px;
+      background: #fff;
+      padding: 3px 8px 3px 6px;
+      cursor: text;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+    }
+    .ms-placeholder {
+      color: #9aa0a6;
+      padding: 4px 4px;
+    }
+    .ms-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e8f1fa;
+      color: #1a4f7a;
+      border: 1px solid #c5d7ea;
+      border-radius: 2px;
+      padding: 1px 6px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .ms-tag button {
+      border: 0;
+      background: transparent;
+      color: #5b7a9a;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      padding: 0;
+    }
+    .ms-tag button:hover { color: #d93025; }
+    .ms-search {
+      flex: 1;
+      min-width: 120px;
+      border: 0;
+      outline: 0;
+      height: 26px;
+      font-family: inherit;
+      font-size: 13px;
+      background: transparent;
+    }
+    .ms.open .ms-control { border-color: #8cb4e0; }
+    .ms-drop {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 2px);
+      max-height: 260px;
+      overflow: auto;
+      background: #fff;
+      border: 1px solid #c8c8c8;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      z-index: 8;
+    }
+    .ms.open .ms-drop { display: block; }
+    .ms-option {
+      padding: 6px 10px;
+      font-style: italic;
+      color: #333;
+      cursor: pointer;
+    }
+    .ms-option:hover,
+    .ms-option.active { background: #3875d7; color: #fff; }
+    .ms-option.selected { background: #e8f3ff; color: #1677ff; font-style: italic; }
+    .ms-option.disabled {
+      color: #bbb;
+      cursor: default;
+      background: #fff;
+    }
+    .ms-empty {
+      padding: 10px;
+      color: #888;
+      font-style: italic;
+    }
+
+    .save-row { margin: 8px 0 0; }
+    .primary-btn {
+      height: 34px;
+      padding: 0 22px;
+      background: var(--mdpi-blue);
+      border: 0;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .primary-btn:hover { background: var(--mdpi-blue-dark); }
+
+    .banner {
+      display: none;
+      max-width: 720px;
+      margin: 0 0 18px;
+      padding: 10px 12px;
+      border: 1px solid #b7eb8f;
+      background: #f6ffed;
+      color: #389e0d;
+      border-radius: 3px;
+    }
+    .banner.show { display: block; }
+
+    .feedback-tab {
+      position: fixed;
+      left: 0;
+      top: 42%;
+      z-index: 30;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      background: var(--mdpi-blue);
+      color: #fff;
+      border: 0;
+      border-radius: 0 0 4px 4px;
+      padding: 14px 7px;
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+    }
+    .chat-avatar {
+      position: fixed;
+      right: 22px;
+      bottom: 56px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: linear-gradient(180deg, #4aa3e8, #1a7ac4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      z-index: 25;
+    }
+    .debug-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      height: 28px;
+      padding: 0 12px;
+      background: #222;
+      color: #ddd;
+      font-size: 11px;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .debug-bar .ok { color: #52c41a; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="page">
+  <header class="site-header">
+    <a class="logo" href="#">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <rect x="3" y="5" width="16" height="18" rx="2" fill="#1a7ac4"/>
+        <rect x="9" y="3" width="16" height="18" rx="2" fill="#4aa3e8"/>
+        <path d="M13 9h8M13 13h8M13 17h5" stroke="#fff" stroke-width="1.4" fill="none"/>
+      </svg>
+      SuSy
+    </a>
+    <nav class="top-nav">
+      <a href="#">Journals</a>
+      <a href="#">Topics</a>
+      <a href="#">Information <span class="caret">▼</span></a>
+      <a href="#">Author Services</a>
+      <a href="#">Initiatives <span class="caret">▼</span></a>
+      <a href="#">About <span class="caret">▼</span></a>
+    </nav>
+    <div class="header-tools">
+      <form class="header-search" onsubmit="return false;">
+        <input type="text" placeholder="Search" />
+        <button type="button" aria-label="Search">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M10.2 10.2L14 14" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+      </form>
+      <button class="submit-btn" type="button">Submit</button>
+      <div class="user-menu">test.susy@mdpi.com <span class="caret">▼</span></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="menu">
+        <div class="menu-title">User Overview</div>
+        <form class="side-search" onsubmit="return false;">
+          <input type="text" placeholder="User e-mail address" />
+          <button type="button" aria-label="Search">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M10.2 10.2L14 14" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+        </form>
+
+        <div class="menu-title">Account <span class="chev">▾</span></div>
+        <a href="#">Dashboard</a>
+        <a href="#">Manage Accounts</a>
+        <a href="#">Change Password</a>
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+        <a href="#">My Approval</a>
+
+        <div class="menu-title">Editorial Office <span class="chev">▾</span></div>
+        <form class="side-search" onsubmit="return false;">
+          <input type="text" placeholder="Quick find manuscript" />
+          <button type="button" aria-label="Search">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M10.2 10.2L14 14" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+        </form>
+        <a href="#">Journal Management</a>
+        <a href="#">Managing Assignment</a>
+        <a href="#">Manage Manuscripts</a>
+        <a href="#">Quality Check <span class="badge">90</span></a>
+        <a href="#">Manage Volunteers</a>
+        <a href="#">Manage Users</a>
+        <a href="#">Manage Special Issues</a>
+        <a href="#">Manage SI Proposals</a>
+        <a href="#">Paper Recommendation <span class="badge">1</span></a>
+        <a href="#">Manage Academic Editors</a>
+        <a href="#">Manage Reviewers</a>
+        <a href="#">Manage RB</a>
+        <a href="#">Manage Vouchers</a>
+        <a href="#">Search Discount Voucher</a>
+        <a href="#">Manage Approvals</a>
+        <a href="#">Manage Scholars</a>
+        <form class="side-search" onsubmit="return false;">
+          <input type="text" placeholder="Search ID" />
+          <button type="button" aria-label="Search">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M10.2 10.2L14 14" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+        </form>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="crumb">Reviewer Board Invitation</div>
+      <h1>Reviewer Board Invitation</h1>
+      <p class="invite-journal">Invitation from <em id="journalName">Biology</em></p>
+
+      <div class="banner" id="successBanner">Your decision has been saved. Selected journal editorial offices will be notified automatically.</div>
+
+      <div class="intro">
+        <p>Peer review is an essential part in the publication process, ensuring that MDPI maintains high quality standards for its published papers. Reviewing is often an unseen and unrewarded task. We are striving to recognize the efforts of reviewers.</p>
+        <p>When reviewing for MDPI journals you:</p>
+        <ul class="benefits">
+          <li>Receive a discount voucher code entitling you to a reduction in the article processing charge (APC) of a future submission to any MDPI journal. Vouchers are linked to your email address and can be applied online at submission or any time before acceptance. Note that vouchers cannot be used after an invoice has been issued. If your article is rejected the voucher can be reused for your next submission.</li>
+          <li>Receive a personalized reviewer certificate.</li>
+          <li>Are included in the journal’s annual acknowledgment of reviewers.</li>
+          <li>Are considered for the journal’s outstanding reviewer award.</li>
+          <li>Can build your profile on Publons and have your reviewing activity automatically added for participating journals. Publons profiles can also be integrated with ORCID.</li>
+        </ul>
+      </div>
+
+      <form class="form" id="rbForm" novalidate>
+        <div class="form-row">
+          <div class="form-label"><span class="req">*</span>Decision</div>
+          <div class="form-field">
+            <div class="radios">
+              <label><input type="radio" name="decision" value="accept" checked /> Accept</label>
+              <label><input type="radio" name="decision" value="decline" /> Decline</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="acceptBlock">
+          <div class="form-row" id="interestsRow">
+            <div class="form-label"><span class="req">*</span>Research Interests</div>
+            <div class="form-field">
+              <input class="text-input" id="interests" type="text" />
+              <div class="error-text">Please enter your research interests.</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-label"></div>
+            <div class="form-field">
+              <p class="journal-prompt">If you are also interested in joining Reviewer Board for other journals, please let us know:</p>
+              <div id="acceptSelect"></div>
+              <p class="hint" id="acceptHint">You may select up to 2 other journals in the same subject area as Biology (Biology &amp; Life Sciences).</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="declineBlock" hidden>
+          <div class="form-row">
+            <div class="form-label"></div>
+            <div class="form-field">
+              <p class="journal-prompt">We regret that you are not currently interested in becoming a Reviewer Board for <em id="declineJournal">Biology</em>.</p>
+              <p class="journal-prompt">If you are interested in contributing to an alternative journal/journals, please let us know</p>
+              <div id="declineSelect"></div>
+              <p class="hint" id="declineHint">You may select up to 3 journals from other MDPI journals.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" id="commentRow">
+          <div class="form-label">Comment</div>
+          <div class="form-field">
+            <textarea class="textarea" id="comment" placeholder="Specify your comments or recommend other top experts."></textarea>
+          </div>
+        </div>
+
+        <div class="save-row">
+          <div class="form-label"></div>
+          <div class="form-field">
+            <button class="primary-btn" type="submit">Save</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+  </div>
+
+  <button class="feedback-tab" type="button">Feedback</button>
+  <div class="chat-avatar" title="Support"></div>
+  <div class="debug-bar">
+    <span>user_rb_pending_invitation</span>
+    <span>1380 ms</span>
+    <span>86.8 MB</span>
+    <span class="ok">200</span>
+  </div>
+
+  <script>
+    (function () {
+      const INVITED = {
+        id: "biology",
+        name: "Biology",
+        subject: "Biology & Life Sciences"
+      };
+
+      const JOURNALS = [
+        { id: "agriculture", name: "Agriculture", subject: "Biology & Life Sciences" },
+        { id: "agronomy", name: "Agronomy", subject: "Biology & Life Sciences" },
+        { id: "animals", name: "Animals", subject: "Biology & Life Sciences" },
+        { id: "antibiotics", name: "Antibiotics", subject: "Biology & Life Sciences" },
+        { id: "antioxidants", name: "Antioxidants", subject: "Biology & Life Sciences" },
+        { id: "bacteria", name: "Bacteria", subject: "Biology & Life Sciences" },
+        { id: "biology", name: "Biology", subject: "Biology & Life Sciences" },
+        { id: "biomolecules", name: "Biomolecules", subject: "Biology & Life Sciences" },
+        { id: "birds", name: "Birds", subject: "Biology & Life Sciences" },
+        { id: "cells", name: "Cells", subject: "Biology & Life Sciences" },
+        { id: "diversity", name: "Diversity", subject: "Biology & Life Sciences" },
+        { id: "dna", name: "DNA", subject: "Biology & Life Sciences" },
+        { id: "ecologies", name: "Ecologies", subject: "Biology & Life Sciences" },
+        { id: "fermentation", name: "Fermentation", subject: "Biology & Life Sciences" },
+        { id: "fishes", name: "Fishes", subject: "Biology & Life Sciences" },
+        { id: "forests", name: "Forests", subject: "Biology & Life Sciences" },
+        { id: "fungi", name: "Fungi", subject: "Biology & Life Sciences" },
+        { id: "genes", name: "Genes", subject: "Biology & Life Sciences" },
+        { id: "horticulturae", name: "Horticulturae", subject: "Biology & Life Sciences" },
+        { id: "insects", name: "Insects", subject: "Biology & Life Sciences" },
+        { id: "ijms", name: "International Journal of Molecular Sciences", subject: "Biology & Life Sciences" },
+        { id: "life", name: "Life", subject: "Biology & Life Sciences" },
+        { id: "marine-drugs", name: "Marine Drugs", subject: "Biology & Life Sciences" },
+        { id: "metabolites", name: "Metabolites", subject: "Biology & Life Sciences" },
+        { id: "microorganisms", name: "Microorganisms", subject: "Biology & Life Sciences" },
+        { id: "pathogens", name: "Pathogens", subject: "Biology & Life Sciences" },
+        { id: "plants", name: "Plants", subject: "Biology & Life Sciences" },
+        { id: "proteomes", name: "Proteomes", subject: "Biology & Life Sciences" },
+        { id: "seeds", name: "Seeds", subject: "Biology & Life Sciences" },
+        { id: "toxins", name: "Toxins", subject: "Biology & Life Sciences" },
+        { id: "vaccines", name: "Vaccines", subject: "Biology & Life Sciences" },
+        { id: "veterinary-sciences", name: "Veterinary Sciences", subject: "Biology & Life Sciences" },
+        { id: "viruses", name: "Viruses", subject: "Biology & Life Sciences" },
+        { id: "accounting-auditing", name: "Accounting and Auditing", subject: "Business & Economics" },
+        { id: "administrative-sciences", name: "Administrative Sciences", subject: "Business & Economics" },
+        { id: "economies", name: "Economies", subject: "Business & Economics" },
+        { id: "jrfm", name: "Journal of Risk and Financial Management", subject: "Business & Economics" },
+        { id: "logistics", name: "Logistics", subject: "Business & Economics" },
+        { id: "risks", name: "Risks", subject: "Business & Economics" },
+        { id: "catalysts", name: "Catalysts", subject: "Chemistry & Materials Science" },
+        { id: "coatings", name: "Coatings", subject: "Chemistry & Materials Science" },
+        { id: "crystals", name: "Crystals", subject: "Chemistry & Materials Science" },
+        { id: "materials", name: "Materials", subject: "Chemistry & Materials Science" },
+        { id: "molecules", name: "Molecules", subject: "Chemistry & Materials Science" },
+        { id: "nanomaterials", name: "Nanomaterials", subject: "Chemistry & Materials Science" },
+        { id: "polymers", name: "Polymers", subject: "Chemistry & Materials Science" },
+        { id: "algorithms", name: "Algorithms", subject: "Computer Science & Mathematics" },
+        { id: "computers", name: "Computers", subject: "Computer Science & Mathematics" },
+        { id: "entropy", name: "Entropy", subject: "Computer Science & Mathematics" },
+        { id: "information", name: "Information", subject: "Computer Science & Mathematics" },
+        { id: "mathematics", name: "Mathematics", subject: "Computer Science & Mathematics" },
+        { id: "symmetry", name: "Symmetry", subject: "Computer Science & Mathematics" },
+        { id: "actuators", name: "Actuators", subject: "Engineering" },
+        { id: "aerospace", name: "Aerospace", subject: "Engineering" },
+        { id: "applied-sciences", name: "Applied Sciences", subject: "Engineering" },
+        { id: "batteries", name: "Batteries", subject: "Engineering" },
+        { id: "electronics", name: "Electronics", subject: "Engineering" },
+        { id: "energies", name: "Energies", subject: "Engineering" },
+        { id: "machines", name: "Machines", subject: "Engineering" },
+        { id: "processes", name: "Processes", subject: "Engineering" },
+        { id: "robotics", name: "Robotics", subject: "Engineering" },
+        { id: "sensors", name: "Sensors", subject: "Engineering" },
+        { id: "acoustics", name: "Acoustics", subject: "Physical Sciences" },
+        { id: "atmosphere", name: "Atmosphere", subject: "Environmental & Earth Sciences" },
+        { id: "climate", name: "Climate", subject: "Environmental & Earth Sciences" },
+        { id: "environments", name: "Environments", subject: "Environmental & Earth Sciences" },
+        { id: "geosciences", name: "Geosciences", subject: "Environmental & Earth Sciences" },
+        { id: "land", name: "Land", subject: "Environmental & Earth Sciences" },
+        { id: "remote-sensing", name: "Remote Sensing", subject: "Environmental & Earth Sciences" },
+        { id: "sustainability", name: "Sustainability", subject: "Environmental & Earth Sciences" },
+        { id: "water", name: "Water", subject: "Environmental & Earth Sciences" },
+        { id: "biomedicines", name: "Biomedicines", subject: "Medicine & Pharmacology" },
+        { id: "cancers", name: "Cancers", subject: "Medicine & Pharmacology" },
+        { id: "diagnostics", name: "Diagnostics", subject: "Medicine & Pharmacology" },
+        { id: "jcm", name: "Journal of Clinical Medicine", subject: "Medicine & Pharmacology" },
+        { id: "nutrients", name: "Nutrients", subject: "Medicine & Pharmacology" },
+        { id: "pharmaceuticals", name: "Pharmaceuticals", subject: "Medicine & Pharmacology" },
+        { id: "pharmaceutics", name: "Pharmaceutics", subject: "Medicine & Pharmacology" },
+        { id: "fluids", name: "Fluids", subject: "Physical Sciences" },
+        { id: "photonics", name: "Photonics", subject: "Physical Sciences" },
+        { id: "universe", name: "Universe", subject: "Physical Sciences" },
+        { id: "education-sciences", name: "Education Sciences", subject: "Social Sciences, Arts and Humanities" },
+        { id: "humanities", name: "Humanities", subject: "Social Sciences, Arts and Humanities" },
+        { id: "social-sciences", name: "Social Sciences", subject: "Social Sciences, Arts and Humanities" }
+      ];
+
+      function others() {
+        return JOURNALS.filter(function (j) { return j.id !== INVITED.id; })
+          .sort(function (a, b) { return a.name.localeCompare(b.name); });
+      }
+      function sameSubject() {
+        return others().filter(function (j) { return j.subject === INVITED.subject; });
+      }
+
+      function MultiSelect(host, options) {
+        const max = options.max;
+        const placeholder = options.placeholder;
+        const items = options.items.slice();
+        const selected = [];
+        let open = false;
+        let activeIndex = 0;
+
+        host.innerHTML = '';
+        const wrap = document.createElement("div");
+        wrap.className = "ms";
+        wrap.innerHTML =
+          '<div class="ms-control" tabindex="0">' +
+            '<span class="ms-placeholder"></span>' +
+            '<input class="ms-search" type="text" autocomplete="off" />' +
+          '</div>' +
+          '<div class="ms-drop"></div>';
+        host.appendChild(wrap);
+
+        const control = wrap.querySelector(".ms-control");
+        const ph = wrap.querySelector(".ms-placeholder");
+        const input = wrap.querySelector(".ms-search");
+        const drop = wrap.querySelector(".ms-drop");
+        ph.textContent = placeholder;
+
+        function selectedItems() {
+          return selected.map(function (id) {
+            return items.find(function (j) { return j.id === id; });
+          }).filter(Boolean);
+        }
+
+        function renderControl() {
+          wrap.querySelectorAll(".ms-tag").forEach(function (el) { el.remove(); });
+          selectedItems().forEach(function (j) {
+            const tag = document.createElement("span");
+            tag.className = "ms-tag";
+            tag.innerHTML = '<span></span><button type="button" aria-label="Remove">&times;</button>';
+            tag.querySelector("span").textContent = j.name;
+            tag.querySelector("button").addEventListener("click", function (e) {
+              e.stopPropagation();
+              selected.splice(selected.indexOf(j.id), 1);
+              render();
+              input.focus();
+            });
+            control.insertBefore(tag, ph);
+          });
+          ph.style.display = selected.length ? "none" : "inline";
+          input.style.display = "inline-block";
+        }
+
+        function renderDrop() {
+          const q = input.value.trim().toLowerCase();
+          const atMax = selected.length >= max;
+          const list = items.filter(function (j) {
+            return !q || j.name.toLowerCase().indexOf(q) !== -1;
+          });
+          drop.innerHTML = "";
+          if (!list.length) {
+            drop.innerHTML = '<div class="ms-empty">No journals found</div>';
+            return;
+          }
+          list.forEach(function (j, i) {
+            const el = document.createElement("div");
+            const isSel = selected.indexOf(j.id) !== -1;
+            el.className = "ms-option" + (isSel ? " selected" : "") + (atMax && !isSel ? " disabled" : "") + (i === activeIndex ? " active" : "");
+            el.textContent = j.name;
+            el.addEventListener("mousedown", function (e) {
+              e.preventDefault();
+              toggle(j.id);
+            });
+            drop.appendChild(el);
+          });
+        }
+
+        function render() {
+          renderControl();
+          renderDrop();
+          if (options.onChange) options.onChange(selectedItems(), selected.length >= max);
+        }
+
+        function toggle(id) {
+          const idx = selected.indexOf(id);
+          if (idx >= 0) {
+            selected.splice(idx, 1);
+          } else if (selected.length < max) {
+            selected.push(id);
+            input.value = "";
+          }
+          activeIndex = 0;
+          render();
+        }
+
+        function setOpen(v) {
+          open = v;
+          wrap.classList.toggle("open", open);
+          if (open) {
+            activeIndex = 0;
+            renderDrop();
+            input.focus();
+          }
+        }
+
+        control.addEventListener("click", function () { setOpen(true); });
+        input.addEventListener("focus", function () { setOpen(true); });
+        input.addEventListener("input", function () {
+          activeIndex = 0;
+          renderDrop();
+        });
+        input.addEventListener("keydown", function (e) {
+          const opts = Array.prototype.slice.call(drop.querySelectorAll(".ms-option:not(.disabled)"));
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            activeIndex = Math.min(activeIndex + 1, Math.max(opts.length - 1, 0));
+            renderDrop();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            activeIndex = Math.max(activeIndex - 1, 0);
+            renderDrop();
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            const visible = items.filter(function (j) {
+              const q = input.value.trim().toLowerCase();
+              return !q || j.name.toLowerCase().indexOf(q) !== -1;
+            }).filter(function (j) {
+              return selected.indexOf(j.id) !== -1 || selected.length < max;
+            });
+            if (visible[activeIndex]) toggle(visible[activeIndex].id);
+          } else if (e.key === "Backspace" && !input.value && selected.length) {
+            selected.pop();
+            render();
+          } else if (e.key === "Escape") {
+            setOpen(false);
+          }
+        });
+        document.addEventListener("click", function (e) {
+          if (!wrap.contains(e.target)) setOpen(false);
+        });
+
+        render();
+        return {
+          getSelected: selectedItems
+        };
+      }
+
+      const acceptHint = document.getElementById("acceptHint");
+      const declineHint = document.getElementById("declineHint");
+      const acceptSelect = MultiSelect(document.getElementById("acceptSelect"), {
+        items: sameSubject(),
+        max: 2,
+        placeholder: "Choose the journal(s) you prefer",
+        onChange: function (sel, atMax) {
+          acceptHint.textContent = atMax
+            ? "Maximum of 2 journals reached."
+            : "You may select up to 2 other journals in the same subject area as Biology (Biology & Life Sciences).";
+          acceptHint.classList.toggle("warn", atMax);
+        }
+      });
+      const declineSelect = MultiSelect(document.getElementById("declineSelect"), {
+        items: others(),
+        max: 3,
+        placeholder: "Choose the journal(s) you prefer",
+        onChange: function (sel, atMax) {
+          declineHint.textContent = atMax
+            ? "Maximum of 3 journals reached."
+            : "You may select up to 3 journals from other MDPI journals.";
+          declineHint.classList.toggle("warn", atMax);
+        }
+      });
+
+      const acceptBlock = document.getElementById("acceptBlock");
+      const declineBlock = document.getElementById("declineBlock");
+      const interestsRow = document.getElementById("interestsRow");
+
+      function decision() {
+        const el = document.querySelector('input[name="decision"]:checked');
+        return el ? el.value : "accept";
+      }
+      function syncDecision() {
+        const d = decision();
+        acceptBlock.hidden = d !== "accept";
+        declineBlock.hidden = d !== "decline";
+      }
+      document.querySelectorAll('input[name="decision"]').forEach(function (el) {
+        el.addEventListener("change", syncDecision);
+      });
+      syncDecision();
+
+      function setError(row, on) {
+        row.classList.toggle("field-error", on);
+      }
+
+      document.getElementById("rbForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const d = decision();
+        let ok = true;
+        if (d === "accept") {
+          const empty = !document.getElementById("interests").value.trim();
+          setError(interestsRow, empty);
+          if (empty) ok = false;
+        } else {
+          setError(interestsRow, false);
+        }
+        if (!ok) return;
+
+        const picked = d === "accept"
+          ? acceptSelect.getSelected()
+          : d === "decline"
+            ? declineSelect.getSelected()
+            : [];
+        const banner = document.getElementById("successBanner");
+        if (picked.length) {
+          banner.textContent = "Your decision has been saved. An email will be sent automatically to: " +
+            picked.map(function (j) { return j.name; }).join(", ") + ".";
+        } else {
+          banner.textContent = "Your decision has been saved.";
+        }
+        banner.classList.add("show");
+        banner.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    })();
+  </script>
+</body>
+</html>

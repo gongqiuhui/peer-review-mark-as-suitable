@@ -8,7 +8,7 @@
       email: "",
       role: "",
       section: "",
-      currentJournal: false,
+      currentJournal: "",
       interests: "",
       exact: false
     }
@@ -23,7 +23,8 @@
     filterCurrentJournal: document.getElementById("filterCurrentJournal"),
     filterInterests: document.getElementById("filterInterests"),
     filterExact: document.getElementById("filterExact"),
-    clearAll: document.getElementById("clearAll"),
+    searchBtn: document.getElementById("searchBtn"),
+    resetBtn: document.getElementById("resetBtn"),
     sortInvite: document.getElementById("sortInvite"),
     prevPage: document.getElementById("prevPage"),
     nextPage: document.getElementById("nextPage"),
@@ -35,7 +36,15 @@
     dialog: document.getElementById("dialog"),
     overlay: document.getElementById("overlay"),
     openEditor: document.getElementById("openEditor"),
-    toast: document.getElementById("toast")
+    toast: document.getElementById("toast"),
+    absenceOverlay: document.getElementById("absenceOverlay"),
+    absenceDialog: document.getElementById("absenceDialog"),
+    absenceCloseBtn: document.getElementById("absenceCloseBtn"),
+    absenceCancelBtn: document.getElementById("absenceCancelBtn"),
+    absenceUpdateLink: document.getElementById("absenceUpdateLink"),
+    absenceEmail: document.getElementById("absenceEmail"),
+    absenceReason: document.getElementById("absenceReason"),
+    absenceMeta: document.getElementById("absenceMeta")
   };
 
   function uniqueSorted(values) {
@@ -67,7 +76,7 @@
     if (email && !editor.email.toLowerCase().includes(email)) return false;
     if (state.filters.role && !editor.roles.includes(state.filters.role)) return false;
     if (state.filters.section && editor.section !== state.filters.section) return false;
-    if (state.filters.currentJournal && !editor.currentJournal) return false;
+    if (state.filters.currentJournal === "current" && !editor.currentJournal) return false;
 
     if (interests) {
       const hay = editor.interests.toLowerCase();
@@ -118,6 +127,53 @@
       </svg>`;
   }
 
+  function absenceCell(editor) {
+    if (!editor.absenceDate) return "";
+    return `<span class="absence-date" data-name="${escapeHtml(editor.name)}">${escapeHtml(editor.absenceDate)}</span>`;
+  }
+
+  function positionAbsencePopup(anchor) {
+    const rect = anchor.getBoundingClientRect();
+    const dialog = els.absenceDialog;
+    const width = dialog.offsetWidth || 700;
+    const height = dialog.offsetHeight || 300;
+    let left = rect.right + 8;
+    let top = rect.top;
+    if (left + width > window.innerWidth - 8) left = rect.left - width - 8;
+    if (left < 8) left = 8;
+    if (top + height > window.innerHeight - 8) top = window.innerHeight - height - 8;
+    if (top < 8) top = 8;
+    dialog.style.left = `${left}px`;
+    dialog.style.top = `${top}px`;
+  }
+
+  function openAbsencePopup(name, anchor) {
+    const editor = EDITORS.find((item) => item.name === name);
+    if (!editor) return;
+    els.absenceEmail.textContent = `${editor.email} absences`;
+    const reason = editor.absenceReason || "No reason provided.";
+    els.absenceReason.textContent = `Reason: ${reason}`;
+    const by = editor.absenceCreatedBy || "Unknown";
+    const at = editor.absenceCreatedAt || "Unknown";
+    els.absenceMeta.innerHTML = `created by <span class="absence-author">${escapeHtml(by)}</span> on <em>${escapeHtml(at)}</em>`;
+    els.absenceOverlay.hidden = false;
+    if (anchor) positionAbsencePopup(anchor);
+  }
+
+  function closeAbsencePopup() {
+    clearTimeout(closeAbsencePopup.timer);
+    els.absenceOverlay.hidden = true;
+  }
+
+  function scheduleCloseAbsencePopup() {
+    clearTimeout(closeAbsencePopup.timer);
+    closeAbsencePopup.timer = setTimeout(closeAbsencePopup, 160);
+  }
+
+  function cancelCloseAbsencePopup() {
+    clearTimeout(closeAbsencePopup.timer);
+  }
+
   function showToast(message) {
     els.toast.hidden = false;
     els.toast.textContent = message;
@@ -149,7 +205,7 @@
               <td>${escapeHtml(editor.section)}</td>
               <td>${escapeHtml(editor.lastInviteDate)}</td>
               <td>${escapeHtml(editor.interests)}</td>
-              <td>${escapeHtml(editor.absenceDate)}</td>
+              <td>${absenceCell(editor)}</td>
               <td>
                 <div class="action-cell">
                   <a class="invite-link" href="#" data-action="invite">Invite</a>
@@ -206,33 +262,35 @@
       state.filters.email = els.filterEmail.value;
       state.filters.role = els.filterRole.value;
       state.filters.section = els.filterSection.value;
-      state.filters.currentJournal = els.filterCurrentJournal.checked;
+      state.filters.currentJournal = els.filterCurrentJournal.value;
       state.filters.interests = els.filterInterests.value;
       state.filters.exact = els.filterExact.checked;
       state.page = 1;
       render();
     };
 
-    ["input", "change"].forEach((evt) => {
-      els.filterName.addEventListener(evt, applyFilters);
-      els.filterEmail.addEventListener(evt, applyFilters);
-      els.filterInterests.addEventListener(evt, applyFilters);
-    });
-    els.filterRole.addEventListener("change", applyFilters);
-    els.filterSection.addEventListener("change", applyFilters);
-    els.filterCurrentJournal.addEventListener("change", applyFilters);
-    els.filterExact.addEventListener("change", applyFilters);
-
-    els.clearAll.addEventListener("click", (e) => {
-      e.preventDefault();
+    const resetFilters = () => {
       els.filterName.value = "";
       els.filterEmail.value = "";
       els.filterRole.value = "";
       els.filterSection.value = "";
-      els.filterCurrentJournal.checked = false;
+      els.filterCurrentJournal.value = "";
       els.filterInterests.value = "";
       els.filterExact.checked = false;
       applyFilters();
+    };
+
+    els.searchBtn.addEventListener("click", applyFilters);
+    els.resetBtn.addEventListener("click", resetFilters);
+
+    els.filterName.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyFilters();
+    });
+    els.filterEmail.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyFilters();
+    });
+    els.filterInterests.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyFilters();
     });
 
     els.sortInvite.addEventListener("click", () => {
@@ -278,6 +336,25 @@
       if (action === "note") showToast(`Editor notes: ${name}`);
       if (action === "history") showToast(`Invitation history: ${name}`);
     });
+
+    els.body.addEventListener("mouseover", (e) => {
+      const dateEl = e.target.closest(".absence-date");
+      if (!dateEl || dateEl.contains(e.relatedTarget)) return;
+      cancelCloseAbsencePopup();
+      openAbsencePopup(dateEl.dataset.name, dateEl);
+    });
+    els.body.addEventListener("mouseout", (e) => {
+      const dateEl = e.target.closest(".absence-date");
+      if (!dateEl || dateEl.contains(e.relatedTarget)) return;
+      if (els.absenceDialog.contains(e.relatedTarget)) return;
+      scheduleCloseAbsencePopup();
+    });
+
+    els.absenceDialog.addEventListener("mouseenter", cancelCloseAbsencePopup);
+    els.absenceDialog.addEventListener("mouseleave", scheduleCloseAbsencePopup);
+    els.absenceCloseBtn.addEventListener("click", closeAbsencePopup);
+    els.absenceCancelBtn.addEventListener("click", closeAbsencePopup);
+    els.absenceUpdateLink.addEventListener("click", (e) => e.preventDefault());
 
     els.closeBtn.addEventListener("click", () => {
       els.overlay.hidden = true;
